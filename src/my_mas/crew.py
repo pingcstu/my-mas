@@ -9,28 +9,41 @@ from crewai.project import CrewBase, agent, crew, task, before_kickoff, after_ki
 
 @CrewBase
 class MyMas():
-	"""MyMas crew"""
+	"""MyMas crew for product comparison analysis"""
 
 	agents_config = 'config/agents.yaml'
 	tasks_config = 'config/tasks.yaml'
 
 	@before_kickoff # Optional hook to be executed before the crew starts
 	def pull_data_example(self, inputs):
-		# Example of pulling data from an external API, dynamically changing the inputs
-		inputs['extra_data'] = "This is extra data"
+		# Optional hook to be executed before the crew starts
+		# You can modify inputs dynamically if needed
 		return inputs
 
 	@after_kickoff # Optional hook to be executed after the crew has finished
 	def log_results(self, output):
-		# Example of logging results, dynamically changing the output
+		# Optional hook to be executed after the crew has finished
 		print(f"Results: {output}")
 		return output
+
+	@agent
+	def analyst(self) -> Agent:
+		return Agent(
+			config=self.agents_config['analyst'],
+			verbose=True
+		)
 
 	@agent
 	def researcher(self) -> Agent:
 		return Agent(
 			config=self.agents_config['researcher'],
-			# tools=[MyCustomTool()], # Example of custom tool, loaded on the beginning of file
+			verbose=True
+		)
+
+	@agent
+	def summary_specialist(self) -> Agent:
+		return Agent(
+			config=self.agents_config['summary_specialist'],
 			verbose=True
 		)
 
@@ -42,15 +55,27 @@ class MyMas():
 		)
 
 	@task
-	def research_task(self) -> Task:
+	def analyst_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['research_task'],
+			config=self.tasks_config['analyst_task'],
 		)
 
 	@task
-	def reporting_task(self) -> Task:
+	def researcher_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['reporting_task'],
+			config=self.tasks_config['researcher_task'],
+		)
+
+	@task
+	def summary_specialist_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['summary_specialist_task'],
+		)
+
+	@task
+	def reporting_analyst_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['reporting_analyst_task'],
 			output_file='report.md'
 		)
 
@@ -58,9 +83,8 @@ class MyMas():
 	def crew(self) -> Crew:
 		"""Creates the MyMas crew"""
 		return Crew(
-			agents=self.agents, # Automatically created by the @agent decorator
-			tasks=self.tasks, # Automatically created by the @task decorator
+			agents=self.agents,  # Automatically created by the @agent decorator
+			tasks=self.tasks,    # Automatically created by the @task decorator
 			process=Process.sequential,
 			verbose=True,
-			# process=Process.hierarchical, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
 		)

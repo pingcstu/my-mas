@@ -1,17 +1,86 @@
-research_task:
+analyst_task:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is 2024.
+    Define comprehensive product comparison criteria for {product_category} 
+    involving {target_brands}. Conduct in-depth user requirement analysis, 
+    focusing on consumer needs and preferences related to {needs_features}. 
+    Establish clear evaluation metrics and prioritize key decision-making factors 
+    that will guide the product comparison process.
   expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
+    A detailed requirements document containing:
+    - Comprehensive user needs assessment
+    - Prioritized comparison criteria
+    - Weighted evaluation framework
+    - Key decision-making parameters
+    - Specific metrics for comparing {product_category}
+    - User preference mapping
+    - Potential user pain points
+    - Comparison scope and limitations
+    - Methodology for feature evaluation
+    - Preliminary insights into consumer expectations
+  agent: analyst
+
+researcher_task:
+  description: >
+    Conduct a comprehensive research about {product_category} from {target_brands}, 
+    focusing on specific user-defined needs: {needs_features}. 
+    Collect detailed information about product specifications, comparing key features 
+    such as camera quality, 5G support, battery life, and other relevant attributes. 
+    Ensure all data is current for the year 2024, verifying information from 
+    multiple credible sources including manufacturer websites, tech review sites, 
+    and consumer electronics databases.
+  expected_output: >
+    A comprehensive list with 10 detailed bullet points covering:
+    - Comparative analysis of {target_brands} in {product_category}
+    - Specific details on {needs_features}
+    - Price ranges and value propositions
+    - Technical specifications and performance metrics
+    - User reviews and expert ratings
+    - Unique selling points for each brand
+    - Technological innovations
+    - Availability and market positioning
+    - Potential pros and cons
+    - Recommended models based on user needs
   agent: researcher
 
-reporting_task:
+summary_specialist_task:
   description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Transform the collected research data on {product_category} from {target_brands} 
+    into clear, visually compelling comparisons. Synthesize complex technical 
+    information into digestible insights that highlight key differences and 
+    similarities across products, with a specific focus on {needs_features}. 
+    Create intuitive visual representations that make technical details 
+    accessible to consumers.
   expected_output: >
-    A fully fledge reports with the mains topics, each with a full section of information.
-    Formatted as markdown without '```'
+    A comprehensive visual analysis package including:
+    - Comparative feature matrix
+    - Graphical performance benchmark charts
+    - Side-by-side product specification tables
+    - Infographics highlighting key differentiators
+    - Visual representation of {needs_features} across brands
+    - Color-coded feature comparison diagrams
+    - Trend analysis visualizations
+    - Simplified pros and cons graphics
+    - Price-to-feature ratio charts
+    - Interactive comparison summary
+  agent: summary_specialist
+
+reporting_analyst_task:
+  description: >
+    Review the research context for {product_category} from {target_brands}, 
+    and develop a comprehensive, consumer-focused report. Analyze the collected 
+    data through the lens of user-specified needs: {needs_features}. 
+    Provide in-depth insights, comparative evaluations, and strategic 
+    recommendations that help consumers make informed purchasing decisions.
+  expected_output: >
+    A fully structured markdown report containing:
+    - Executive Summary
+    - Detailed Product Comparisons
+    - Comprehensive Analysis of {needs_features}
+    - Brand-by-Brand Breakdown
+    - Performance Benchmarks
+    - Price-to-Value Analysis
+    - Recommendation Matrix
+    - Pros and Cons Summary
+    - Final Consumer Recommendations
+    Formatted without code block delimiters, using professional markdown structure
   agent: reporting_analyst
