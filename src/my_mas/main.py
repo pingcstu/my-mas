@@ -28,9 +28,9 @@ def train():
     Train the crew for a given number of iterations.
     """
     inputs = {
-        "product_category": sys.argv[3] if len(sys.argv) > 3 else 'Smartphones',
-        "target_brands": sys.argv[4] if len(sys.argv) > 4 else 'Apple, Samsung, Google',
-        "needs_features": sys.argv[5] if len(sys.argv) > 5 else 'High camera quality, 5G support, Battery life over 4000 mAh'
+        'product_category': 'Smartphones',  # Example default value
+        'target_brands': 'Apple, Samsung, Google',  # Example default brands
+        'needs_features': 'High camera quality, 5G support, Battery life over 4000 mAh'  # Example default features
     }
     try:
         MyMas().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
@@ -55,9 +55,9 @@ def test():
     Test the crew execution and returns the results.
     """
     inputs = {
-        "product_category": sys.argv[3] if len(sys.argv) > 3 else 'Smartphones',
-        "target_brands": sys.argv[4] if len(sys.argv) > 4 else 'Apple, Samsung, Google',
-        "needs_features": sys.argv[5] if len(sys.argv) > 5 else 'High camera quality, 5G support, Battery life over 4000 mAh'
+        'product_category': 'Smartphones',  # Example default value
+        'target_brands': 'Apple, Samsung, Google',  # Example default brands
+        'needs_features': 'High camera quality, 5G support, Battery life over 4000 mAh'  # Example default features
     }
     try:
         MyMas().crew().test(n_iterations=int(sys.argv[1]), openai_model_name=sys.argv[2], inputs=inputs)
